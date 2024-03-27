@@ -1,80 +1,81 @@
 class Node:
 
-    def __init__(self, item):
-        self.data = item
-        self.next = None
+	def __init__(self, item):
+		self.data = item
+		self.next = None
 
 
 class LinkedList:
 
-    def __init__(self):
-        self.nodeCount = 0
-        self.head = None
-        self.tail = None
-
-    def getAt(self, pos):
-        if pos < 1 or pos > self.nodeCount:
-            return None
-
-        i = 1
-        curr = self.head
-        while i < pos:
-            curr = curr.next
-            i += 1
-
-        return curr
-
-    def insertAt(self, pos, newNode):
-        if pos < 1 or pos > self.nodeCount + 1:
-            return False
-
-        if pos == 1:
-            newNode.next = self.head
-            self.head = newNode
-
-        else:
-            if pos == self.nodeCount + 1:
-                prev = self.tail
-            else:
-                prev = self.getAt(pos - 1)
-            newNode.next = prev.next
-            prev.next = newNode
-
-        if pos == self.nodeCount + 1:
-            self.tail = newNode
-
-        self.nodeCount += 1
-        return True
-
-    def popAt(self, pos):
-        if pos < 1 and pos > self.nodeCount:
-            raise IndexError
-
-        self.nodeCount -= 1
-        if pos == 1:
-            self.head = curr.next
-            return curr.data
-        elif pos == self.nodeCount:
-            curr = self.tail
-            prev = self.getAt(pos - 1)
-            self.tail = prev
-            curr.next = None
-            return curr.data
-        else:
-            prev = self.getAt(pos - 1)
-            curr = prev.next
-            nextnode = curr.next
-            prev.next = nextnode
-            return curr.data
-
-    def traverse(self):
-        result = []
-        curr = self.head
-        while curr is not None:
-            result.append(curr.data)
-            curr = curr.next
-        return result
+	def __init__(self):
+		self.nodeCount = 0
+		self.head = Node(None)
+		self.tail = None
+		self.head.next = self.tail
 
 
-def solution(x):
-    return 0
+	def __repr__(self):
+		if self.nodeCount == 0:
+			return 'LinkedList: empty'
+
+		s = ''
+		curr = self.head
+		while curr.next:
+			curr = curr.next
+			s += repr(curr.data)
+			if curr.next is not None:
+				s += ' -> '
+		return s
+
+
+	def getLength(self):
+		return self.nodeCount
+
+
+	def traverse(self):
+		result = []
+		curr = self.head
+		while curr.next:
+			curr = curr.next
+			result.append(curr.data)
+		return result
+
+
+	def getAt(self, pos):
+		if pos < 0 or pos > self.nodeCount:
+			return None
+
+		i = 0
+		curr = self.head
+		while i < pos:
+			curr = curr.next
+			i += 1
+
+		return curr
+
+
+	def insertAfter(self, prev, newNode):
+		newNode.next = prev.next
+		if prev.next is None:
+			self.tail = newNode
+		prev.next = newNode
+		self.nodeCount += 1
+		return True
+
+
+	def insertAt(self, pos, newNode):
+		if pos < 1 or pos > self.nodeCount + 1:
+			return False
+
+		if pos != 1 and pos == self.nodeCount + 1:
+			prev = self.tail
+		else:
+			prev = self.getAt(pos - 1)
+		return self.insertAfter(prev, newNode)
+
+
+	def concat(self, L):
+		self.tail.next = L.head.next
+		if L.tail:
+			self.tail = L.tail
+		self.nodeCount += L.nodeCount
