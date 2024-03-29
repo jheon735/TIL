@@ -1,0 +1,23 @@
+- 공백
+  - 한 줄의 문자 길이가 79자 이하
+  - 함수와 클래스는 빈 줄 두개로 구분
+  - 클래스에서 메서드는 빈 줄 하나로 구분
+  - 변수 할당 앞 뒤에 스페으스를 하나만 사용
+  - 리스트 인덱스, 함수 호출, 키워드 인수 할당에는 스페이스를 사용하지 않음
+- 명명법
+  - 함수, 변수, 속성 : 소문자와 언더바
+  - Protected instance 속성 : 앞에 언더바와 언더바 ex> _leading_underscore
+  - Private instance 속성 : 앞에 언더바 두개와 언더바 ex> __double_leading_underscore
+  - 클래스와 예외 : 대문자로 시작
+  - 모듈 수준 상수 : 전부 대문자
+  - 클래스의 인스턴스 매서드 첫 파라미터 : self
+  - 클래스 매서드 첫 파라미터 : cls
+- 표현식과 문장
+  - if no a is b 보단 if a is not b 사용
+  - if not somelist 처럼 빈 값은 암시적으로 False로 가정
+  - if somelist 처럼 값이 있는 리스트는 암시적으로 True로 가정
+  - if, for while loop, except는 한줄로 쓰지 않는다
+  - import는 파일 맨 위
+  - import foo대신 from bar import foo
+  - 상대적인 임포트를 해야한다면 from . import foo
+  - 임포트 순서 : 표준 > 서드파티 > 자신이 만든 모듈  알파벳 순서로
