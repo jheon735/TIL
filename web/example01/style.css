@@ -1,0 +1,13 @@
+body {
+    color: blue;
+}
+
+span{
+    padding-left: 10px;
+    padding-top: 100px;
+}
+
+div{
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
