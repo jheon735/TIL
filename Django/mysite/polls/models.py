@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+import datetime
 
 # Create your models here.
 class Questions(models.Model):
@@ -9,7 +11,14 @@ class Questions(models.Model):
     # jason_field = models.JSONField(default = dict)
 
     def __str__(self):  # 자기 자신을 문자열로 저장할 떄 사용하는 법
-        return f'제목: {self.question_text}, 날짜: {self.pub_date}'
+        if self.was_published_recently():
+            new_badge = "NEW!!"
+        else:
+            new_badge = ""
+        return f'{new_badge}제목: {self.question_text}, 날짜: {self.pub_date}'
+    
+    def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
 class Choice(models.Model):
     question = models.ForeignKey(Questions, on_delete=models.CASCADE)
