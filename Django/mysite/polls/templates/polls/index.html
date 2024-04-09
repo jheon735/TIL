@@ -1,0 +1,10 @@
+{% if questions %}
+<ul>
+    {% for question in questions %}
+    <!-- <li><a href="/polls/{{question.id}}">{{question.question_text}}</a></li> -->
+        <li><a href="{% url 'polls:detail' question.id %}">{{question.question_text}}</a></li>    <!-- urls.py 에서 detail이란 이름으로 path를 지정해서 urls에 지정한 paht를 활용-->
+    {% endfor %}
+</ul>
+{% else %}
+<p>no questions</p>
+{% endif %}
