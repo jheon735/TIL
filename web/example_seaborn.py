@@ -56,7 +56,17 @@ for i in range(1,11):
                 freq[tag] = 1
             else:
                 freq[tag] += 1
-        time.sleep(0.5)
+        time.sleep(0.1)
 
 counter = Counter(freq)
-counter.most_common(10)
+# counter.most_common(10) #상위 10개 보여주기
+
+x = [elem[0] for elem in counter.most_common(10)]
+y = [elem[1] for elem in counter.most_common(10)]
+
+plt.figure(figsize=(20, 10))
+plt.title("Frequency of quesion in Q&A")
+plt.xlabel("Tag")
+plt.ylabel("Frequency")
+sns.barplot(x=x, y=y)
+plt.show()

@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('polls/', include('polls.urls')),  # 생성된 app의 url로 보내도록 함
     path('admin/', admin.site.urls),
+    path('rest/', include('polls_api.urls')),
 ]

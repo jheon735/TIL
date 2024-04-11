@@ -12,10 +12,11 @@ class Questions(models.Model):
     # jason_field = models.JSONField(default = dict)
 
     def __str__(self):  # 자기 자신을 문자열로 저장할 떄 사용하는 법
-        if self.was_published_recently():
-            new_badge = "NEW!!"
-        else:
-            new_badge = ""
+        # if self.was_published_recently():
+        #     new_badge = "NEW!!"
+        # else:
+        #     new_badge = ""
+        new_badge = ""
         return f'{new_badge}제목: {self.question_text}, 날짜: {self.pub_date}'
     
     @admin.display(boolean=True, description="최근생성(하루기준)")  #메서드에 이름을 부여할 때 사용하는 데코레이터
