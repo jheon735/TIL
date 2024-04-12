@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework.decorators import api_view
-from polls.models import Questions
+from polls.models import Questions, Vote
 from polls_api.serializers import *
 from rest_framework.response import Response
-from rest_framework import status, mixins, generics, permissions
+from rest_framework import status, mixins, generics, permissions, status
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsVoter
 
 # Create your views here.
 """
@@ -103,6 +104,34 @@ class QuestionDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 """
+
+class VoteList(generics.ListCreateAPIView):
+    serializer_class = VoteSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self, *args, **kwargs):
+        return Vote.objects.filter(voter=self.request.user)
+    
+    # mixin의 create의 perform_create를 오버라이드
+    # def perform_create(self, serializer):
+    #     serializer.save(voter=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        new_data = request.data.copy()
+        new_data['voter'] = request.user.id
+        serializer = self.get_serializer(data=new_data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+class VoteDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
+    permission_classes = [permissions.IsAuthenticated, IsVoter]
+
+    def perform_update(self, serializer):
+        serializer.save(voter=self.request.user)
 
 #generics의 메서드를 활용
 class QuestionList(generics.ListCreateAPIView):
