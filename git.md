@@ -127,14 +127,13 @@
         6. Remote branch로 Push한다 : `git push -u origin 브랜치이름`
         7. Main에 merge를 위한 리뷰 요청(PR : Pull Request) : `git request-pull`
 
-    - Github
-        - Git repo 호스팅/클라우드 서비스
-        - 웹 기반 인터페이스도 제공
-        - 문서화를 위한 Wikis와 버그리포트와 트랙킹을 위한 Issues 기능 제공
-        - 자신이 만든 repo들이 모두 public일 경우 사용이 무료
-            - private repo 수에 따라 가격대 결정
-        - Github Copilot 지원
-
+6. Github
+    - Git repo 호스팅/클라우드 서비스
+    - 웹 기반 인터페이스도 제공
+    - 문서화를 위한 Wikis와 버그리포트와 트랙킹을 위한 Issues 기능 제공
+    - 자신이 만든 repo들이 모두 public일 경우 사용이 무료
+        - private repo 수에 따라 가격대 결정
+    - Github Copilot 지원
     - 실습1 : Local에서 만든 후 github 리포 생성
         - `git init`으로 빈 repo 생성
         - `git add 파일이름`으로 추가
@@ -155,3 +154,10 @@
         - github사이트에서 compare & pull request 클릭
         - 내용을 작성한 후 오른쪽에 Reviewers를 지정하여 리뷰어 요청
         - Pull request 탭에 Files changed로 파일 변경 내용 보고 Review change를 눌러 반영
+    - Organization
+        - 여러 레포를 하나로 묶는 기능
+    - 레포 생성 관련
+        - .gitignore : 환경 변수 파일을 git에 포함되지 않도록 하는 설정. gitignore사이트를 통해 여러 코드의 환경변수를 설정하지 않게 할 수 있다.
+        - license : MIT License - 코드를 가져다 써도 되지만 문제가 될 때 책임지지 않는다는 라이선스
+    - 포크 : 깃헙에서 가져오기
+    - excalidraw라는 확장으로 그림 그릴 수 있다

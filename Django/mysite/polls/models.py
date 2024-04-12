@@ -7,6 +7,7 @@ from django.contrib import admin
 class Questions(models.Model):
     question_text = models.CharField(max_length = 200, verbose_name='질문')
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='생성일')
+    owner = models.ForeignKey('auth.User', related_name='questions', on_delete=models.CASCADE, null=True)    #on_delete cascde는 owner가 지워지면 질문 삭제하라는 뜻
     # is_something = models.BooleanField(default=False) # Boolean 필드는 변수명 앞에 is를 하는게 좋다
     # average_score = models.FloatField(default = 0.0)
     # jason_field = models.JSONField(default = dict)
