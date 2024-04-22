@@ -1,12 +1,13 @@
-# 시각화에 쓰이는 라이브러리
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-# 횟수를 기반으로 딕셔너리 생성
 from collections import Counter
-# 문장에서 명사를 추출하는 형태소 분석 라이브러리
 from konlpy.tag import Hannanum
+import time
+import requests
+from bs4 import BeautifulSoup
 
-national_anthem = """
+"""
+national_anthem = 
 동해물과 백두산이 마르고 닳도록
 하느님이 보우하사 우리나라 만세
 무궁화 삼천리 화려 강산
@@ -23,8 +24,49 @@ national_anthem = """
 괴로우나 즐거우나 나라 사랑하세
 무궁화 삼천리 화려 강산
 대한 사람 대한으로 길이 보전하세
-"""
+
 
 hannanum = Hannanum()
-nouns = hannanum.nouns(national_anthem)
-print(nouns)
+nouns = hannanum.nouns(national_anthem)     #명사들을 키워드로 나열
+counter = Counter(nouns)
+
+wordcloud = WordCloud(
+    font_path=
+    background_color='white',
+    width = 1000,
+    height = 1000,
+)
+img = wordcloud.generate_from_frequencies(counter)
+plt.imshow(img)
+plt.show()
+"""
+
+user_agent = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+
+questions = []
+for i in range(1, 6):
+    res = requests.get(f"https://hashcode.co.kr/?page={i}", user_agent)     # 페이지네이션 된 사이트 스크래핑
+    soup = BeautifulSoup(res.text, "html.parser")
+    results = soup.find_all("li", "question-list-item")
+
+    for result in results:
+        questions.append(result.h4.text.strip())
+
+    time.sleep(0.1)
+
+hannanum = Hannanum()
+words = []
+for question in questions:
+    nouns = hannanum.nouns(question)
+    words += nouns
+
+counter = Counter(words)
+wordcloud = WordCloud(
+    font_path=r"C:\Users\l9305\OneDrive\문서\TIL\TIL\web\MALGUN.TTF",
+    background_color='white',
+    width = 1000,
+    height = 1000,
+)
+img = wordcloud.generate_from_frequencies(counter)
+plt.imshow(img)
+plt.show()
