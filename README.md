@@ -67,3 +67,6 @@
    3. [4월 24일](SQLnDW/0424.md)
    3. [4월 25일](SQLnDW/0425.md)
    3. [4월 26일](SQLnDW/0426.md)
+
+5. AWS
+   1. [4월 29일](CloudnAWS/0429.md)
