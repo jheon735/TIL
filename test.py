@@ -1,8 +1,9 @@
 import requests
 import time
 import pandas as pd
+import json
 
-trade = pd.read_csv('data/seoul_realestate.csv', header = 0, skipinitialspace=True)
+trade = pd.read_csv('seoul_realestate.csv', header = 0, skipinitialspace=True)
 trade = trade.drop(trade[trade['자치구코드'] > 20000].index)
 trade = trade.drop(['접수연도', '신고한 개업공인중개사 시군구명', '자치구코드', '법정동코드', '지번구분', '지번구분명'], axis=1)
 trade = trade.fillna(-9999)
@@ -16,15 +17,15 @@ for idx, row in trade.iterrows():
             "service": "address",
             "request": "getcoord",
             "crs": "epsg:4326",
-            f"address": "{addr}",
+            f"address": f"{row['주소']}",
             "format": "json",
-            "type": "road",
+            "type": "parcel",
             "key": "28010AC2-7187-3642-BC8C-816A34DDF7CC"
         }
         response = requests.get(apiurl, params=params)
         if response.status_code == 200:
-            print(response.json())
-    if idx == 10:
+            print(response.json()["response"]["result"]['point']['x'])
+    if idx == 3:
         print(idx, time.time()-tt)
         break
 
