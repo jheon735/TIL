@@ -131,6 +131,8 @@
     - Git repo 호스팅/클라우드 서비스
     - 웹 기반 인터페이스도 제공
     - 문서화를 위한 Wikis와 버그리포트와 트랙킹을 위한 Issues 기능 제공
+    - Code 개발 생산성 증대를 위핸 Copilot 제공
+    - CI/CD등의 다양한 연동을 위한 Workflows 제공
     - 자신이 만든 repo들이 모두 public일 경우 사용이 무료
         - private repo 수에 따라 가격대 결정
     - Github Copilot 지원
@@ -161,3 +163,32 @@
         - license : MIT License - 코드를 가져다 써도 되지만 문제가 될 때 책임지지 않는다는 라이선스
     - 포크 : 깃헙에서 가져오기
     - excalidraw라는 확장으로 그림 그릴 수 있다
+
+# Github Actions
+- CI/CD를 Github위에서 구현하기 위한 서비스
+- 용량, 서버 여부에 따라 유무료 구분
+- 트리거가 발생하면 시작되는 일련의 동작들을 Workflow라 함
+- Workflow를 위한 명령어들은 YAML 파일러 저장 : 환경설정과 scripts 실행들이 대표적
+- Workflow의 컴포넌드
+    - Events
+    - Jobs : 특정한 작업을 수행해주는 일련의 스텝을 수행
+    - Actions : Actions들의 집합이 Jobs
+    - Runner : Actions을 실행하는 것
+- 실행 방법
+    1. github web Repo에 Actions 메뉴 선택
+    2. workflow를 하나 생성
+    3. 템플릿 혹은 직접 입력하여 YML 파일을 생성
+- Python Application
+    - Github Action CI 템플릿 중 하나
+    - flake8을 사용하여 코딩 스타일 체크
+    - pytest를 테스트 프레임웍으로 설치
+    - Python code linting tool(문법 에러나 코딩 스타일 확인해주는 tool)로 flake8을 설치하고 문법 에러와 코딩 스타일 체크
+    - uniitest라는 linting tool도 있음
+
+# yml 파일 포맷
+- `#`으로 Comments
+- Key-value pair는 콜론과 공백 ex: `name: John Doe`
+- 리스트는 콜론 뒤에 하이픈과 공백 ex: `hobbies:\n - reading \n - hiking`
+- Nested key-value pair는 space 2번 들여쓰기
+- 여러 줄 stirng의 경우 `|` 사용
+- JSON과 동일한 포맷이라 변환 가능
